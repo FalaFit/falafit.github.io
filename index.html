@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FalaFitBot - Seu assistente de nutrição com IA. Registre suas refeições e acompanhe suas macros via Telegram.">
+    <meta name="keywords" content="nutrição, fitness, IA, Telegram, macros, calorias, proteínas, dieta">
+    <title>FalaFitBot | Seu Assistente de Nutrição com IA no Telegram</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0088cc;
+            --primary-dark: #006699;
+            --primary-light: #00a8e8;
+            --secondary: #64b5f6;
+            --accent: #29b6f6;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #e3f2fd;
+            --white: #ffffff;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #0088cc 0%, #0096dd 100%);
+            --gradient-secondary: linear-gradient(135deg, #64b5f6 0%, #29b6f6 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --gradient-hero: linear-gradient(135deg, #006699 0%, #0088cc 50%, #00a8e8 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: var(--white);
+        }
+        
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #0088cc 0%, #64b5f6 100%);
+            opacity: 0.03;
+        }
+        
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 136, 204, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .btn-nav {
+            padding: 0.5rem 1.5rem;
+            background: var(--gradient-primary);
+            color: white !important;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 136, 204, 0.3);
+        }
+        
+        .btn-nav::after {
+            display: none !important;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 120px 2rem 80px;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 1s ease;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #64b5f6 0%, #90caf9 50%, #bbdefb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-content p {
+            font-size: 1.25rem;
+            color: #bbdefb;
+            margin-bottom: 2rem;
+            animation: slideInLeft 1s ease 0.2s both;
+        }
+        
+        .hero-badges {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            animation: slideInLeft 1s ease 0.4s both;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            color: white;
+            font-size: 0.875rem;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .badge i {
+            color: #bbdefb;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            animation: slideInLeft 1s ease 0.6s both;
+        }
+        
+        .btn-hero {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-hero-primary {
+            background: white;
+            color: var(--primary-dark);
+        }
+        
+        .btn-hero-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(255,255,255,0.3);
+        }
+        
+        .btn-hero-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-hero-secondary:hover {
+            background: white;
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Hero Image/Animation */
+        .hero-visual {
+            position: relative;
+            animation: slideInRight 1s ease;
+        }
+        
+        .phone-mockup {
+            width: 350px;
+            height: 700px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.3);
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .telegram-header {
+            background: #0088cc;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+        
+        .telegram-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            padding: 8px;
+        }
+        
+        .telegram-chat {
+            padding: 1rem;
+            background: #f0f2f5;
+            min-height: 500px;
+        }
+        
+        .message {
+            max-width: 70%;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .message-received {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .message-sent {
+            background: #0088cc;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 10px 0 10px 10px;
+            margin-left: auto;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 2rem;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.125rem;
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+        
+        .feature-card:hover::before {
+            opacity: 0.05;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 136, 204, 0.1);
+            border-color: var(--primary-light);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 2rem;
+            background: var(--light);
+        }
+        
+        .pricing-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 136, 204, 0.15);
+        }
+        
+        .pricing-card.featured::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .plan-price-lifetime {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+        
+        .price-note {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .plan-features li {
+            padding: 0.75rem 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .plan-features i.fa-check {
+            color: var(--success);
+            font-size: 1rem;
+        }
+        
+        .plan-features i.fa-times {
+            color: var(--danger);
+            font-size: 1rem;
+        }
+        
+        .btn-pricing {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card.featured .btn-pricing {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-pricing:hover {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+        
+        .trial-badge {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 2rem;
+            background: white;
+        }
+        
+        .steps-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 60%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            z-index: 1;
+        }
+        
+        .step h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .step p {
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 2rem;
+            background: var(--gradient-hero);
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            color: #bbdefb;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        
+        .telegram-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 2.5rem;
+            background: white;
+            color: var(--primary-dark);
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .telegram-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .telegram-button i {
+            font-size: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-brand h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-brand p {
+            color: #94a3b8;
+            line-height: 1.8;
+        }
+        
+        .footer-section h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-section ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary-light);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: #64748b;
+        }
+        
+        /* Floating Elements */
+        .float-element {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.1) 0%, rgba(100, 181, 246, 0.1) 100%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .float-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .float-2 {
+            width: 60px;
+            height: 60px;
+            top: 70%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .float-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 10%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .phone-mockup {
+                width: 280px;
+                height: 560px;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .step:not(:last-child)::after {
+                display: none;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                🍎 FalaFitBot
+            </a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#como-funciona">Como Funciona</a></li>
+                <li><a href="#planos">Planos</a></li>
+                <li><a href="https://t.me/SEU_BOT_AQUI" class="btn-nav">Começar Agora</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+<section class="hero" id="inicio">
+    <div class="float-element float-1"></div>
+    <div class="float-element float-2"></div>
+    <div class="float-element float-3"></div>
+    
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>Seu Assistente de Nutrição <span class="gradient-text">com IA</span> no Telegram</h1>
+            <p>Registre suas refeições por áudio ou texto e acompanhe suas macros em tempo real. Tudo isso conversando naturalmente pelo Telegram.</p>
+            
+            <div class="hero-badges">
+                <div class="badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Registro por Áudio ou Texto</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-brain"></i>
+                    <span>IA Avançada Claude</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Todas as Macros</span>
+                </div>
+            </div>
+            
+            <div class="hero-cta">
+                <a href="https://t.me/SEU_BOT_AQUI" class="btn-hero btn-hero-primary">
+                    <i class="fab fa-telegram"></i>
+                    Começar Gratuitamente
+                </a>
+                <a href="#como-funciona" class="btn-hero btn-hero-secondary">
+                    Ver Como Funciona
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="telegram-header">
+                        <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            🍎
+                        </div>
+                        <div>
+                            <div style="font-weight: 600;">FalaFitBot</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8;">online</div>
+                        </div>
+                    </div>
+                    <div class="telegram-chat">
+                        <div class="message message-received">
+                            Olá! Eu sou o FalaFitBot 🍎 Registre suas refeições e acompanhe suas macros!
+                        </div>
+                        <div class="message message-sent">
+                            🎙️ Almocei 200g de arroz, 150g de frango e salada
+                        </div>
+                        <div class="message message-received">
+                            ✅ Refeição registrada!<br><br>
+                            📊 Calorias: 520 kcal<br>
+                            🥩 Proteínas: 45g<br>
+                            🍞 Carboidratos: 68g<br>
+                            🥑 Gorduras: 8g
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Features Section -->
+    <section class="features" id="recursos">
+        <div class="section-header">
+            <h2>Tudo que Você Precisa para Acompanhar sua Dieta</h2>
+            <p>Recursos inteligentes que tornam o controle nutricional simples e eficaz</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3>Registro por Áudio ou Texto</h3>
+                <p>Fale naturalmente ou escreva o que comeu. Nossa IA processa e calcula as macros automaticamente em segundos.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Cálculo Automático de Macros</h3>
+                <p>Análise completa e instantânea de calorias, proteínas, carboidratos e gorduras de cada refeição.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Resumos Automáticos</h3>
+                <p>Receba resumos diários e semanais direto no Telegram. Acompanhe seu progresso sem esforço.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Metas Personalizadas</h3>
+                <p>Defina suas metas de calorias e macros. Veja em tempo real o quanto falta para atingir seus objetivos.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Histórico Completo</h3>
+                <p>Acesse todo seu histórico de refeições e acompanhe sua evolução ao longo do tempo.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h3>Edição Fácil</h3>
+                <p>Cometeu um erro? Edite ou delete refeições facilmente direto no chat do Telegram.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="section-header">
+            <h2>Como Funciona</h2>
+            <p>Comece a controlar sua alimentação em apenas 3 passos simples</p>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Adicione no Telegram</h3>
+                <p>Clique no botão e inicie uma conversa com o FalaFitBot no Telegram</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Configure suas Metas</h3>
+                <p>Responda algumas perguntas sobre suas metas nutricionais e objetivos</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Registre e Acompanhe</h3>
+                <p>Fale ou escreva o que comeu e receba análise instantânea das macros</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section class="pricing" id="planos">
+        <div class="section-header">
+            <h2>Escolha seu Plano</h2>
+            <p>Opções flexíveis para todas as necessidades</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="trial-badge">🎁 3 DIAS GRÁTIS</div>
+                <h3 class="plan-name">Free</h3>
+                <div class="plan-price">R$ 0<span>/mês</span></div>
+                <p class="price-note">Após 3 dias de trial Pro</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> 1 registro por dia (áudio ou texto)</li>
+                    <li><i class="fas fa-check"></i> Contagem de macros</li>
+                    <li><i class="fas fa-check"></i> Metas personalizadas</li>
+                    <li><i class="fas fa-times"></i> Resumo diário automático</li>
+                    <li><i class="fas fa-times"></i> Resumo semanal automático</li>
+                    <li><i class="fas fa-times"></i> Histórico completo</li>
+                    <li><i class="fas fa-times"></i> Edição de refeições</li>
+                </ul>
+                <a href="https://t.me/SEU_BOT_AQUI" class="btn-pricing">Começar Grátis</a>
+            </div>
+            
+            <div class="pricing-card featured">
+                <h3 class="plan-name">Pro</h3>
+                <div class="plan-price">R$ 9,90<span>/mês</span></div>
+                <p class="price-note">🔥 Promoção de lançamento!</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Registros ILIMITADOS</li>
+                    <li><i class="fas fa-check"></i> Áudio ou texto sem limites</li>
+                    <li><i class="fas fa-check"></i> Contagem completa de macros</li>
+                    <li><i class="fas fa-check"></i> Resumo diário automático (7h)</li>
+                    <li><i class="fas fa-check"></i> Resumo semanal automático</li>
+                    <li><i class="fas fa-check"></i> Histórico completo</li>
+                    <li><i class="fas fa-check"></i> Edição ilimitada de refeições</li>
+                    <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                </ul>
+                <a href="https://t.me/SEU_BOT_AQUI" class="btn-pricing">Assinar Pro</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3 class="plan-name">Vitalício</h3>
+                <div class="plan-price-lifetime">R$ 89,90<span style="display:block; font-size: 0.875rem; margin-top: 0.5rem;">pagamento único</span></div>
+                <p class="price-note">💎 Melhor custo-benefício</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> <strong>Tudo do plano Pro</strong></li>
+                    <li><i class="fas fa-check"></i> Acesso PARA SEMPRE</li>
+                    <li><i class="fas fa-check"></i> Sem mensalidade nunca</li>
+                    <li><i class="fas fa-check"></i> Atualizações futuras incluídas</li>
+                    <li><i class="fas fa-check"></i> Equivale a 9 meses de Pro</li>
+                    <li><i class="fas fa-check"></i> Suporte prioritário vitalício</li>
+                </ul>
+                <a href="https://t.me/SEU_BOT_AQUI" class="btn-pricing">Garantir Vitalício</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2>Pronto para Controlar sua Alimentação?</h2>
+            <p>Junte-se a centenas de pessoas que já estão alcançando seus objetivos com o FalaFitBot</p>
+            <a href="https://t.me/SEU_BOT_AQUI" class="telegram-button">
+                <i class="fab fa-telegram"></i>
+                Começar Agora no Telegram
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>🍎 FalaFitBot</h3>
+                <p>Transformando vidas através da tecnologia e nutrição. Seu assistente de nutrição com IA disponível 24/7 no Telegram.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Produto</h4>
+                <ul>
+                    <li><a href="#recursos">Recursos</a></li>
+                    <li><a href="#planos">Planos e Preços</a></li>
+                    <li><a href="#como-funciona">Como Funciona</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">LGPD</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 FalaFitBot. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+        
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+            }
+        });
+        
+        // Telegram Chat Animation
+        const messages = document.querySelectorAll('.message');
+        messages.forEach((msg, index) => {
+            setTimeout(() => {
+                msg.style.animation = 'fadeInUp 0.5s ease';
+            }, index * 1000);
+        });
+        
+        // Animate on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe feature cards and steps
+        document.querySelectorAll('.feature-card, .step, .pricing-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
+
