@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="FalaFitBot - Seu assistente de nutrição com IA. Registre suas refeições e acompanhe suas macros via Telegram.">
-    <meta name="keywords" content="nutrição, fitness, IA, Telegram, macros, calorias, proteínas, dieta">
+    <meta name="keywords" content="nutrição, fitness, IA, Telegram, macros, calorias, proteínas, dieta, saúde, alimentação">
+    <meta name="author" content="FalaFitBot">
     <title>FalaFitBot | Seu Assistente de Nutrição com IA no Telegram</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo_falafit_telegram.png">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +18,15 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BLTJQ35845"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BLTJQ35845');
+    </script>
     
     <style>
         :root {
@@ -102,18 +115,16 @@
             font-family: 'Poppins', sans-serif;
             font-size: 1.8rem;
             font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             text-decoration: none;
         }
         
-        .logo i {
-            font-size: 2rem;
-            color: var(--primary);
+        .logo img {
+            height: 40px;
+            width: auto;
         }
         
         .nav-links {
@@ -391,6 +402,76 @@
             }
         }
         
+        /* Trust Section */
+        .trust-section {
+            padding: 60px 2rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        
+        .trust-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .trust-card {
+            display: inline-block;
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .trust-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .trust-icon {
+            font-size: 3rem;
+        }
+        
+        .trust-text {
+            text-align: left;
+        }
+        
+        .trust-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .trust-text p {
+            color: var(--gray);
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        .trust-stats {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
         /* Features Section */
         .features {
             padding: 80px 2rem;
@@ -497,11 +578,37 @@
             background: var(--light);
         }
         
+        .streak-challenge {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .streak-challenge-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .streak-challenge h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .streak-challenge p {
+            font-size: 1.125rem;
+            margin: 0;
+        }
+        
         .pricing-grid {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
         
@@ -542,6 +649,17 @@
         
         .pricing-card.featured:hover {
             transform: scale(1.05) translateY(-10px);
+        }
+        
+        .trial-badge {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
         }
         
         .plan-name {
@@ -606,6 +724,10 @@
             font-size: 1rem;
         }
         
+        .plan-features i.fa-trophy {
+            color: #f59e0b;
+        }
+        
         .btn-pricing {
             width: 100%;
             padding: 1rem;
@@ -616,6 +738,8 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
         
         .pricing-card.featured .btn-pricing {
@@ -629,17 +753,6 @@
             color: white;
             border-color: transparent;
             transform: translateY(-2px);
-        }
-        
-        .trial-badge {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 1rem;
         }
         
         /* How It Works */
@@ -707,7 +820,7 @@
         }
         
         .cta-content {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
         
@@ -725,13 +838,18 @@
             margin-bottom: 2rem;
         }
         
-        .telegram-button {
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .telegram-button, .whatsapp-button {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
             padding: 1.25rem 2.5rem;
-            background: white;
-            color: var(--primary-dark);
             border-radius: 50px;
             font-size: 1.125rem;
             font-weight: 700;
@@ -740,12 +858,27 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
+        .telegram-button {
+            background: white;
+            color: var(--primary-dark);
+        }
+        
         .telegram-button:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
         
-        .telegram-button i {
+        .whatsapp-button {
+            background: #25D366;
+            color: white;
+        }
+        
+        .whatsapp-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+        
+        .telegram-button i, .whatsapp-button i {
             font-size: 1.5rem;
         }
         
@@ -770,14 +903,13 @@
             font-size: 1.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-light);
         }
         
         .footer-brand p {
             color: #94a3b8;
             line-height: 1.8;
+            margin-bottom: 1rem;
         }
         
         .footer-section h4 {
@@ -821,9 +953,10 @@
             justify-content: center;
             color: white;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
         
-        .social-links a:hover {
+.social-links a:hover {
             background: var(--primary);
             transform: translateY(-3px);
         }
@@ -833,6 +966,47 @@
             padding-top: 2rem;
             text-align: center;
             color: #64748b;
+        }
+        
+        /* Floating Telegram Button */
+        .floating-telegram {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+        
+        .floating-telegram a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0, 136, 204, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .floating-telegram a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 136, 204, 0.6);
+        }
+        
+        .floating-telegram i {
+            font-size: 1.5rem;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(0, 136, 204, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(0, 136, 204, 0.6);
+            }
         }
         
         /* Floating Elements */
@@ -917,9 +1091,34 @@
                 font-size: 2.5rem;
             }
             
+            .hero-cta {
+                flex-direction: column;
+            }
+            
             .phone-mockup {
                 width: 280px;
                 height: 560px;
+            }
+            
+            .trust-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .trust-text {
+                text-align: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
             }
             
             .steps-container {
@@ -930,13 +1129,18 @@
                 display: none;
             }
             
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
             
-            .pricing-card.featured {
-                transform: scale(1);
+            .floating-telegram a {
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
             }
         }
     </style>
@@ -949,7 +1153,8 @@
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">
-                🍎 FalaFitBot
+                <img src="images/logo_falafit_telegram.png" alt="FalaFitBot Logo">
+                FalaFitBot
             </a>
             <button class="mobile-menu-toggle" id="mobileMenuToggle">
                 <i class="fas fa-bars"></i>
@@ -959,81 +1164,110 @@
                 <li><a href="#recursos">Recursos</a></li>
                 <li><a href="#como-funciona">Como Funciona</a></li>
                 <li><a href="#planos">Planos</a></li>
-                <li><a href="https://t.me/SEU_BOT_AQUI" class="btn-nav">Começar Agora</a></li>
+                <li><a href="https://t.me/FalaFitBot" class="btn-nav">Começar Agora</a></li>
             </ul>
         </div>
     </nav>
     
     <!-- Hero Section -->
-<section class="hero" id="inicio">
-    <div class="float-element float-1"></div>
-    <div class="float-element float-2"></div>
-    <div class="float-element float-3"></div>
-    
-    <div class="hero-container">
-        <div class="hero-content">
-            <h1>Seu Assistente de Nutrição <span class="gradient-text">com IA</span> no Telegram</h1>
-            <p>Registre suas refeições por áudio ou texto e acompanhe suas macros em tempo real. Tudo isso conversando naturalmente pelo Telegram.</p>
-            
-            <div class="hero-badges">
-                <div class="badge">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Registro por Áudio ou Texto</span>
-                </div>
-                <div class="badge">
-                    <i class="fas fa-brain"></i>
-                    <span>IA Avançada Claude</span>
-                </div>
-                <div class="badge">
-                    <i class="fas fa-chart-pie"></i>
-                    <span>Todas as Macros</span>
-                </div>
-            </div>
-            
-            <div class="hero-cta">
-                <a href="https://t.me/SEU_BOT_AQUI" class="btn-hero btn-hero-primary">
-                    <i class="fab fa-telegram"></i>
-                    Começar Gratuitamente
-                </a>
-                <a href="#como-funciona" class="btn-hero btn-hero-secondary">
-                    Ver Como Funciona
-                </a>
-            </div>
-        </div>
+    <section class="hero" id="inicio">
+        <div class="float-element float-1"></div>
+        <div class="float-element float-2"></div>
+        <div class="float-element float-3"></div>
         
-        <div class="hero-visual">
-            <div class="phone-mockup">
-                <div class="phone-screen">
-                    <div class="telegram-header">
-                        <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            🍎
-                        </div>
-                        <div>
-                            <div style="font-weight: 600;">FalaFitBot</div>
-                            <div style="font-size: 0.75rem; opacity: 0.8;">online</div>
-                        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Seu Assistente de Nutrição <span class="gradient-text">com IA</span> no Telegram</h1>
+                <p>Registre suas refeições por áudio ou texto e acompanhe suas macros em tempo real. Tudo isso conversando naturalmente pelo Telegram.</p>
+                
+                <div class="hero-badges">
+                    <div class="badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Registro por Áudio ou Texto</span>
                     </div>
-                    <div class="telegram-chat">
-                        <div class="message message-received">
-                            Olá! Eu sou o FalaFitBot 🍎 Registre suas refeições e acompanhe suas macros!
+                    <div class="badge">
+                        <i class="fas fa-brain"></i>
+                        <span>IA Avançada Claude</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Todas as Macros</span>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="https://t.me/FalaFitBot" class="btn-hero btn-hero-primary">
+                        <i class="fab fa-telegram"></i>
+                        Começar Gratuitamente
+                    </a>
+                    <a href="#como-funciona" class="btn-hero btn-hero-secondary">
+                        Ver Como Funciona
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="telegram-header">
+                            <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                🍎
+                            </div>
+                            <div>
+                                <div style="font-weight: 600;">FalaFitBot</div>
+                                <div style="font-size: 0.75rem; opacity: 0.8;">online</div>
+                            </div>
                         </div>
-                        <div class="message message-sent">
-                            🎙️ Almocei 200g de arroz, 150g de frango e salada
-                        </div>
-                        <div class="message message-received">
-                            ✅ Refeição registrada!<br><br>
-                            📊 Calorias: 520 kcal<br>
-                            🥩 Proteínas: 45g<br>
-                            🍞 Carboidratos: 68g<br>
-                            🥑 Gorduras: 8g
+                        <div class="telegram-chat">
+                            <div class="message message-received">
+                                Olá! Eu sou o FalaFitBot 🍎 Registre suas refeições e acompanhe suas macros!
+                            </div>
+                            <div class="message message-sent">
+                                🎙️ Almocei 200g de arroz, 150g de frango e salada
+                            </div>
+                            <div class="message message-received">
+                                ✅ Refeição registrada!<br><br>
+                                📊 Calorias: 520 kcal<br>
+                                🥩 Proteínas: 45g<br>
+                                🍞 Carboidratos: 68g<br>
+                                🥑 Gorduras: 8g
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- Features Section -->
+    </section>
+    
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="trust-container">
+            <div class="trust-card">
+                <div class="trust-content">
+                    <div class="trust-icon">🗃️</div>
+                    <div class="trust-text">
+                        <h3>Dados Nutricionais Confiáveis</h3>
+                        <p>
+                            Tabela com <strong>milhares de alimentos</strong> verificados e validados.<br>
+                            Cálculos precisos baseados em dados oficiais de nutrição.
+                        </p>
+                    </div>
+                    <div class="trust-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">5000+</div>
+                            <div class="stat-label">Alimentos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">✓</div>
+                            <div class="stat-label">Verificados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
     <section class="features" id="recursos">
         <div class="section-header">
             <h2>Tudo que Você Precisa para Acompanhar sua Dieta</h2>
@@ -1126,41 +1360,50 @@
             <p>Opções flexíveis para todas as necessidades</p>
         </div>
         
+        <!-- Streak Challenge Banner -->
+        <div class="streak-challenge">
+            <div class="streak-challenge-icon">🔥</div>
+            <h3>Desafio Streak PRO</h3>
+            <p>Mantenha <strong>3 meses de streak consecutivo</strong> e receba <strong>REEMBOLSO TOTAL</strong>! 💰</p>
+        </div>
+        
         <div class="pricing-grid">
+            <!-- FREE PLAN -->
             <div class="pricing-card">
-                <div class="trial-badge">🎁 3 DIAS GRÁTIS</div>
+                <div class="trial-badge">🎁 3 DIAS DE PRO GRÁTIS</div>
                 <h3 class="plan-name">Free</h3>
                 <div class="plan-price">R$ 0<span>/mês</span></div>
-                <p class="price-note">Após 3 dias de trial Pro</p>
+                <p class="price-note" style="font-weight: 600; color: var(--success);">✨ Grátis para sempre!</p>
+                <p class="price-note" style="margin-top: 0.5rem;">Após 3 dias de trial Pro</p>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> 1 registro por dia (áudio ou texto)</li>
-                    <li><i class="fas fa-check"></i> Contagem de macros</li>
+                    <li><i class="fas fa-check"></i> Contagem de macros completa</li>
                     <li><i class="fas fa-check"></i> Metas personalizadas</li>
-                    <li><i class="fas fa-times"></i> Resumo diário automático</li>
-                    <li><i class="fas fa-times"></i> Resumo semanal automático</li>
-                    <li><i class="fas fa-times"></i> Histórico completo</li>
-                    <li><i class="fas fa-times"></i> Edição de refeições</li>
+                    <li><i class="fas fa-check"></i> Sistema de Streaks</li>
                 </ul>
-                <a href="https://t.me/SEU_BOT_AQUI" class="btn-pricing">Começar Grátis</a>
+                <a href="https://t.me/FalaFitBot" class="btn-pricing">Começar Grátis</a>
             </div>
             
+            <!-- PRO PLAN -->
             <div class="pricing-card featured">
                 <h3 class="plan-name">Pro</h3>
                 <div class="plan-price">R$ 9,90<span>/mês</span></div>
                 <p class="price-note">🔥 Promoção de lançamento!</p>
                 <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Registros ILIMITADOS</li>
-                    <li><i class="fas fa-check"></i> Áudio ou texto sem limites</li>
-                    <li><i class="fas fa-check"></i> Contagem completa de macros</li>
+                    <li><i class="fas fa-check"></i> <strong>Tudo do Free +</strong></li>
+                    <li><i class="fas fa-check"></i> Registros ILIMITADOS por dia</li>
                     <li><i class="fas fa-check"></i> Resumo diário automático (7h)</li>
                     <li><i class="fas fa-check"></i> Resumo semanal automático</li>
                     <li><i class="fas fa-check"></i> Histórico completo</li>
                     <li><i class="fas fa-check"></i> Edição ilimitada de refeições</li>
+                    <li><i class="fas fa-check"></i> Streaks avançados com recompensas</li>
                     <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                    <li style="color: var(--success); font-weight: 700;"><i class="fas fa-trophy"></i> Reembolso após 3 meses de streak!</li>
                 </ul>
-                <a href="https://t.me/SEU_BOT_AQUI" class="btn-pricing">Assinar Pro</a>
+                <a href="https://t.me/FalaFitBot" class="btn-pricing">Assinar Pro</a>
             </div>
             
+            <!-- LIFETIME PLAN -->
             <div class="pricing-card">
                 <h3 class="plan-name">Vitalício</h3>
                 <div class="plan-price-lifetime">R$ 89,90<span style="display:block; font-size: 0.875rem; margin-top: 0.5rem;">pagamento único</span></div>
@@ -1170,10 +1413,10 @@
                     <li><i class="fas fa-check"></i> Acesso PARA SEMPRE</li>
                     <li><i class="fas fa-check"></i> Sem mensalidade nunca</li>
                     <li><i class="fas fa-check"></i> Atualizações futuras incluídas</li>
-                    <li><i class="fas fa-check"></i> Equivale a 9 meses de Pro</li>
                     <li><i class="fas fa-check"></i> Suporte prioritário vitalício</li>
+                    <li style="color: var(--success); font-weight: 700;"><i class="fas fa-trophy"></i> Participa do desafio Streak!</li>
                 </ul>
-                <a href="https://t.me/SEU_BOT_AQUI" class="btn-pricing">Garantir Vitalício</a>
+                <a href="https://t.me/FalaFitBot" class="btn-pricing">Garantir Vitalício</a>
             </div>
         </div>
     </section>
@@ -1183,10 +1426,16 @@
         <div class="cta-content">
             <h2>Pronto para Controlar sua Alimentação?</h2>
             <p>Junte-se a centenas de pessoas que já estão alcançando seus objetivos com o FalaFitBot</p>
-            <a href="https://t.me/SEU_BOT_AQUI" class="telegram-button">
-                <i class="fab fa-telegram"></i>
-                Começar Agora no Telegram
-            </a>
+            <div class="cta-buttons">
+                <a href="https://t.me/FalaFitBot" class="telegram-button">
+                    <i class="fab fa-telegram"></i>
+                    Começar Agora no Telegram
+                </a>
+                <a href="https://wa.me/5519981250530?text=Olá!%20Gostaria%20de%20falar%20com%20um%20especialista" class="whatsapp-button">
+                    <i class="fab fa-whatsapp"></i>
+                    Falar com Especialista
+                </a>
+            </div>
         </div>
     </section>
     
@@ -1196,11 +1445,17 @@
             <div class="footer-brand">
                 <h3>🍎 FalaFitBot</h3>
                 <p>Transformando vidas através da tecnologia e nutrição. Seu assistente de nutrição com IA disponível 24/7 no Telegram.</p>
+                <p style="margin-top: 1rem;">
+                    <i class="fas fa-envelope"></i> 
+                    <a href="mailto:falafitbot.contato@gmail.com" style="color: #94a3b8; text-decoration: none;">falafitbot.contato@gmail.com</a>
+                </p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/falafit.bot/" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://t.me/FalaFitBot" target="_blank" aria-label="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
                 </div>
             </div>
             
@@ -1219,16 +1474,16 @@
                 <ul>
                     <li><a href="#">Sobre Nós</a></li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contato</a></li>
+                    <li><a href="mailto:falafitbot.contato@gmail.com">Contato</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
-                <h4>Legal</h4>
+                <h4>Suporte</h4>
                 <ul>
-                    <li><a href="#">Termos de Uso</a></li>
-                    <li><a href="#">Política de Privacidade</a></li>
-                    <li><a href="#">LGPD</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="https://t.me/FalaFitBot">Falar Conosco</a></li>
+                    <li><a href="https://wa.me/5519981250530?text=Olá!%20Gostaria%20de%20reportar%20um%20problema">Reportar Bug</a></li>
                 </ul>
             </div>
         </div>
@@ -1237,6 +1492,14 @@
             <p>&copy; 2025 FalaFitBot. Todos os direitos reservados.</p>
         </div>
     </footer>
+    
+    <!-- Floating Telegram Button -->
+    <div class="floating-telegram">
+        <a href="https://t.me/FalaFitBot">
+            <i class="fab fa-telegram"></i>
+            <span>Abrir Bot</span>
+        </a>
+    </div>
     
     <script>
         // Mobile Menu Toggle
@@ -1299,7 +1562,26 @@
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
+        
+        // Track button clicks for Analytics
+        document.querySelectorAll('a[href="https://t.me/FalaFitBot"]').forEach(button => {
+            button.addEventListener('click', function() {
+                gtag('event', 'click_telegram_bot', {
+                    'event_category': 'engagement',
+                    'event_label': this.textContent.trim()
+                });
+            });
+        });
+        
+        document.querySelectorAll('a[href*="wa.me"]').forEach(button => {
+            button.addEventListener('click', function() {
+                gtag('event', 'click_whatsapp', {
+                    'event_category': 'engagement',
+                    'event_label': 'Falar com Especialista'
+                });
+            });
+        });
     </script>
 </body>
 </html>
-
+```
