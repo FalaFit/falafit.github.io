@@ -572,36 +572,26 @@
             z-index: 1;
         }
         
+        .feature-highlight {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid var(--primary-light);
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
         /* Pricing Section */
         .pricing {
             padding: 80px 2rem;
             background: var(--light);
-        }
-        
-        .streak-challenge {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            color: white;
-        }
-        
-        .streak-challenge-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .streak-challenge h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-        
-        .streak-challenge p {
-            font-size: 1.125rem;
-            margin: 0;
         }
         
         .pricing-grid {
@@ -649,17 +639,6 @@
         
         .pricing-card.featured:hover {
             transform: scale(1.05) translateY(-10px);
-        }
-        
-        .trial-badge {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 1rem;
         }
         
         .plan-name {
@@ -724,8 +703,8 @@
             font-size: 1rem;
         }
         
-        .plan-features i.fa-trophy {
-            color: #f59e0b;
+        .plan-features i.fa-robot {
+            color: var(--primary);
         }
         
         .btn-pricing {
@@ -956,7 +935,7 @@
             text-decoration: none;
         }
         
-.social-links a:hover {
+        .social-links a:hover {
             background: var(--primary);
             transform: translateY(-3px);
         }
@@ -1178,20 +1157,20 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Seu Assistente de Nutrição <span class="gradient-text">com IA</span> no Telegram</h1>
-                <p>Registre suas refeições por áudio ou texto e acompanhe suas macros em tempo real. Tudo isso conversando naturalmente pelo Telegram.</p>
+                <p>Registre suas refeições por áudio ou texto e acompanhe suas macros em tempo real. Análise inteligente com IA Claude para insights personalizados.</p>
                 
                 <div class="hero-badges">
                     <div class="badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Registro por Áudio ou Texto</span>
+                        <i class="fas fa-microphone"></i>
+                        <span>Registro por Áudio</span>
                     </div>
                     <div class="badge">
                         <i class="fas fa-brain"></i>
-                        <span>IA Avançada Claude</span>
+                        <span>IA Claude Avançada</span>
                     </div>
                     <div class="badge">
                         <i class="fas fa-chart-pie"></i>
-                        <span>Todas as Macros</span>
+                        <span>Análise Completa</span>
                     </div>
                 </div>
                 
@@ -1248,8 +1227,8 @@
                     <div class="trust-text">
                         <h3>Dados Nutricionais Confiáveis</h3>
                         <p>
-                            Tabela com <strong>milhares de alimentos</strong> verificados e validados.<br>
-                            Cálculos precisos baseados em dados oficiais de nutrição.
+                            Base de dados com <strong>mais de 5.000 alimentos</strong> verificados.<br>
+                            Cálculos precisos baseados em fontes oficiais de nutrição.
                         </p>
                     </div>
                     <div class="trust-stats">
@@ -1283,6 +1262,15 @@
                 <p>Fale naturalmente ou escreva o que comeu. Nossa IA processa e calcula as macros automaticamente em segundos.</p>
             </div>
             
+            <div class="feature-card feature-highlight">
+                <span class="feature-badge">🤖 IA AVANÇADA</span>
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Coach Nutricional com IA Claude</h3>
+                <p>Análises personalizadas do seu progresso com inteligência artificial de última geração. Receba insights, recomendações e orientações baseadas nos seus dados reais.</p>
+            </div>
+            
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-calculator"></i>
@@ -1295,8 +1283,24 @@
                 <div class="feature-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <h3>Resumos Automáticos</h3>
-                <p>Receba resumos diários e semanais direto no Telegram. Acompanhe seu progresso sem esforço.</p>
+                <h3>Resumos Automáticos Diários e Semanais</h3>
+                <p>Receba resumos completos direto no Telegram. Acompanhe seu progresso sem esforço com análises detalhadas.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Estatísticas Detalhadas Premium</h3>
+                <p>Visualize sua evolução com gráficos e estatísticas completas. Identifique padrões e otimize seus resultados.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h3>Exportar Seus Dados</h3>
+                <p>Exporte todo seu histórico em CSV para análises personalizadas. Seus dados, seu controle total.</p>
             </div>
             
             <div class="feature-card">
@@ -1304,7 +1308,7 @@
                     <i class="fas fa-bullseye"></i>
                 </div>
                 <h3>Metas Personalizadas</h3>
-                <p>Defina suas metas de calorias e macros. Veja em tempo real o quanto falta para atingir seus objetivos.</p>
+                <p>Defina suas metas de calorias e macros. Veja em tempo real o quanto falta para atingir seus objetivos diários.</p>
             </div>
             
             <div class="feature-card">
@@ -1312,15 +1316,15 @@
                     <i class="fas fa-history"></i>
                 </div>
                 <h3>Histórico Completo</h3>
-                <p>Acesse todo seu histórico de refeições e acompanhe sua evolução ao longo do tempo.</p>
+                <p>Acesse todo seu histórico de refeições e acompanhe sua evolução ao longo do tempo com filtros avançados.</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-edit"></i>
                 </div>
-                <h3>Edição Fácil</h3>
-                <p>Cometeu um erro? Edite ou delete refeições facilmente direto no chat do Telegram.</p>
+                <h3>Edição e Exclusão Fácil</h3>
+                <p>Cometeu um erro? Edite ou delete refeições facilmente direto no chat do Telegram com comandos simples.</p>
             </div>
         </div>
     </section>
@@ -1336,19 +1340,19 @@
             <div class="step">
                 <div class="step-number">1</div>
                 <h3>Abra o bot no Telegram</h3>
-                <p>Clique no botão e inicie uma conversa com o FalaFitBot no Telegram</p>
+                <p>Clique no botão e inicie uma conversa com o FalaFitBot</p>
             </div>
             
             <div class="step">
                 <div class="step-number">2</div>
                 <h3>Configure suas Metas</h3>
-                <p>Responda algumas perguntas sobre suas metas nutricionais e objetivos</p>
+                <p>Responda algumas perguntas sobre seus objetivos nutricionais</p>
             </div>
             
             <div class="step">
                 <div class="step-number">3</div>
                 <h3>Registre e Acompanhe</h3>
-                <p>Fale ou escreva o que comeu e receba análise instantânea das macros</p>
+                <p>Fale ou escreva o que comeu e receba análise instantânea</p>
             </div>
         </div>
     </section>
@@ -1360,61 +1364,56 @@
             <p>Opções flexíveis para todas as necessidades</p>
         </div>
         
-        <!-- Streak Challenge Banner -->
-        <div class="streak-challenge">
-            <div class="streak-challenge-icon">🔥</div>
-            <h3>Desafio Streak PRO</h3>
-            <p>Mantenha <strong>3 meses de streak consecutivo</strong> e receba <strong>REEMBOLSO TOTAL</strong>! 💰</p>
-        </div>
-        
         <div class="pricing-grid">
             <!-- FREE PLAN -->
             <div class="pricing-card">
-                <div class="trial-badge">🎁 3 DIAS DE PRO GRÁTIS</div>
                 <h3 class="plan-name">Free</h3>
                 <div class="plan-price">R$ 0<span>/mês</span></div>
                 <p class="price-note" style="font-weight: 600; color: var(--success);">✨ Grátis para sempre!</p>
-                <p class="price-note" style="margin-top: 0.5rem;">Após 3 dias de trial Pro</p>
                 <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> 1 registro por dia (áudio ou texto)</li>
+                    <li><i class="fas fa-check"></i> 1 registro por dia</li>
                     <li><i class="fas fa-check"></i> Contagem de macros completa</li>
                     <li><i class="fas fa-check"></i> Metas personalizadas</li>
-                    <li><i class="fas fa-check"></i> Sistema de Streaks</li>
+                    <li><i class="fas fa-check"></i> Resumo diário</li>
+                    <li><i class="fas fa-times"></i> Resumos semanais</li>
+                    <li><i class="fas fa-times"></i> Coach com IA ilimitado</li>
+                    <li><i class="fas fa-times"></i> Estatísticas detalhadas</li>
+                    <li><i class="fas fa-times"></i> Exportar dados</li>
                 </ul>
                 <a href="https://t.me/FalaFitBot" class="btn-pricing">Começar Grátis</a>
             </div>
             
             <!-- PRO PLAN -->
             <div class="pricing-card featured">
-                <h3 class="plan-name">Pro</h3>
-                <div class="plan-price">R$ 9,90<span>/mês</span></div>
-                <p class="price-note">🔥 Promoção de lançamento!</p>
+                <h3 class="plan-name">Premium</h3>
+                <div class="plan-price">R$ 19,90<span>/mês</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> <strong>Tudo do Free +</strong></li>
-                    <li><i class="fas fa-check"></i> Registros ILIMITADOS por dia</li>
-                    <li><i class="fas fa-check"></i> Resumo diário automático</li>
-                    <li><i class="fas fa-check"></i> Resumo semanal automático</li>
-                    <li><i class="fas fa-check"></i> Histórico completo</li>
+                    <li><i class="fas fa-check"></i> <strong>Registros ILIMITADOS</strong></li>
+                    <li><i class="fas fa-robot"></i> <strong>Coach IA ilimitado (/coach)</strong></li>
+                    <li><i class="fas fa-check"></i> Resumos semanais automáticos</li>
+                    <li><i class="fas fa-check"></i> Estatísticas detalhadas (/stats)</li>
+                    <li><i class="fas fa-check"></i> Exportar dados em CSV</li>
                     <li><i class="fas fa-check"></i> Edição ilimitada de refeições</li>
-                    <li><i class="fas fa-check"></i> Streaks avançados com recompensas</li>
+                    <li><i class="fas fa-check"></i> Histórico completo</li>
                     <li><i class="fas fa-check"></i> Suporte prioritário</li>
-                    <li style="color: var(--success); font-weight: 700;"><i class="fas fa-trophy"></i> Reembolso após 3 meses de streak!</li>
                 </ul>
-                <a href="https://t.me/FalaFitBot" class="btn-pricing">Assinar Pro</a>
+                <a href="https://t.me/FalaFitBot" class="btn-pricing">Assinar Premium</a>
             </div>
             
             <!-- LIFETIME PLAN -->
             <div class="pricing-card">
                 <h3 class="plan-name">Vitalício</h3>
-                <div class="plan-price-lifetime">R$ 89,90<span style="display:block; font-size: 0.875rem; margin-top: 0.5rem;">pagamento único</span></div>
+                <div class="plan-price-lifetime">R$ 197,00<span style="display:block; font-size: 0.875rem; margin-top: 0.5rem;">pagamento único</span></div>
                 <p class="price-note">💎 Melhor custo-benefício</p>
                 <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> <strong>Tudo do plano Pro</strong></li>
-                    <li><i class="fas fa-check"></i> Acesso PARA SEMPRE</li>
-                    <li><i class="fas fa-check"></i> Sem mensalidade nunca</li>
-                    <li><i class="fas fa-check"></i> Atualizações futuras incluídas</li>
+                    <li><i class="fas fa-check"></i> <strong>Tudo do Premium</strong></li>
+                    <li><i class="fas fa-check"></i> <strong>Acesso VITALÍCIO</strong></li>
+                    <li><i class="fas fa-check"></i> Sem mensalidade nunca mais</li>
+                    <li><i class="fas fa-check"></i> Todas as atualizações futuras</li>
+                    <li><i class="fas fa-check"></i> Novos recursos incluídos</li>
                     <li><i class="fas fa-check"></i> Suporte prioritário vitalício</li>
-                    <li style="color: var(--success); font-weight: 700;"><i class="fas fa-trophy"></i> Participa do desafio Streak!</li>
+                    <li><i class="fas fa-check"></i> Badge exclusivo 👑</li>
                 </ul>
                 <a href="https://t.me/FalaFitBot" class="btn-pricing">Garantir Vitalício</a>
             </div>
@@ -1584,4 +1583,3 @@
     </script>
 </body>
 </html>
-```
